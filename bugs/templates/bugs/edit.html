@@ -1,0 +1,42 @@
+{% extends "bugs/base.html"%}
+{% block content%}
+<div class="content-section center col-md-9" style="
+margin-right: auto;
+margin-left: auto;
+
+">
+    <h1 style="color:white">Edit Bug: </h1>
+    <hr>
+    <button style="position: relative; " class="btn btn-outline-info" onclick="">Save</button>
+    <button style="position: relative; " class="btn btn-outline-info" onclick="">Complete</button>
+    <button style="position: relative; " class="btn btn-outline-info" onclick="">Delete</button>
+    <hr>
+        {% if s == 'red' %}
+        <select name="severity" class="select" required="" id="id_severity" > <option value="red">Red</option><option value="yellow">yellow</option> <option value="green">green</option> 
+
+
+        {% endif %}
+        {% if s == 'yellow' %}
+        <select name="severity" class="select" required="" id="id_severity"> <option value="yellow">Yellow</option> <option value="red">red</option><option value="green">green</option> 
+
+            
+        {% endif %}
+        {% if s == 'green' %}
+        <select name="severity" class="select" required="" id="id_severity"> <option value="green">Green</option><option value="yellow">yellow</option> <option value="red">red</option> 
+
+
+        {% endif %}
+</select>
+
+
+        <input type="text" name="title" maxlength="50" class="textinput textInput" id="id_title" value="{{ t }}">
+
+
+    <hr>
+
+    <textarea name="description" cols="40" rows="10" maxlength="500" class="textarea" id="id_description">{{ d }}</textarea>
+    <br>
+
+</div>
+
+{% endblock content%}

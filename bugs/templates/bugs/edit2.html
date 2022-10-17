@@ -1,0 +1,24 @@
+{% extends "bugs/base.html"%}
+{% load crispy_forms_tags %}
+{% block content%}
+  <div class="content-section center col-md-9" style="
+  margin-right: auto;
+  margin-left: auto;
+  ">
+
+
+    <h1>Edit</h1>
+    <!-- FORM HERE -->
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Bug Info</legend>
+        {{ bug_form|crispy}}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update</button>
+      </div>
+    </form>
+    </body>
+  </div>
+  {% endblock content%}

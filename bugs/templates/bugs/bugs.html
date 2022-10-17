@@ -1,0 +1,118 @@
+
+{% extends "bugs/base.html"%}
+{% load crispy_forms_tags %}
+
+
+
+
+{% block content%}
+
+  {% if request.user.is_authenticated %}
+
+  <div class="col-md-6" style="padding-left: 10px;padding-right: 10px;">
+        <div class="content-section" style="width: col-md-6">
+        <h1>My Bugs:</h1>
+
+        {% for bug in bugs %}
+            
+            
+
+                  <div>
+                    <div onclick="location.href='{% url 'edit-bug' bug.pk%}';"class="content-section ff">
+
+                      {% if bug.severity == 'red' %}
+    
+                      <p style="font-size: 22; "><span style="color: #cf2608;"> {{bug.title}} </span> - {{bug.date}}</p>
+                      {% endif %}
+                      {% if bug.severity == 'yellow' %}
+                      <p style="font-size: 22;"><span style="color: #b7ba04;"> {{bug.title}} </span> - {{bug.date}}</p>
+    
+                          
+                      {% endif %}
+                      {% if bug.severity == 'green' %}
+                      <p style="font-size: 22;"><span style="color: #24a607;">{{bug.title}} </span> - {{bug.date}}</p>
+    
+                      {% endif %}
+                  
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="">Edit</button>
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="">Complete</button>
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="">Delete</button>
+                  </div>
+
+              </div
+            </div>
+        {% endfor %}
+    
+          <center>
+
+            <p>
+...
+            </p>
+          {% if is_paginated %}
+            {% if page_obj.has_previous %}
+              <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+          {% endif %}
+          </center>
+        </div>
+      </div>
+      
+        <div class="col-md-6 " style="padding-left: 10px;padding-right: 10px;">
+          <div class="content-section">
+            <h3>Bug Distribution Graph</h3>
+            
+          </div>
+
+            <div class="content-section" style="margin-top: 20px;">
+              <h3>Bug Stats:</h3>
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-light">Total Bugs {{ub}}</li>
+                  <li class="list-group-item list-group-item-light">Uncomplate Bugs {{ob}}</li>
+                  <li class="list-group-item list-group-item-light">Complete Bugs {{cb}}</li>
+                  <li class="list-group-item list-group-item-light">Red Bugs {{rb}}</li>
+                  <li class="list-group-item list-group-item-light">Yellow Bugs {{yb}}</li>
+                  <li class="list-group-item list-group-item-light">Green Bugs {{gb}}</li>
+                  <li class="list-group-item list-group-item-light">Closed Bugs {{cb}}</li>
+
+
+                </ul>
+              </p>
+            </div>
+          </div>
+          <!---
+          site prediction stats.....
+          <div class="col-md-13">
+            <div class="content-section">
+              <h3>Site Prediction Stats:</h3>
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-light">Correct Completed Predictions: a stat</li>
+                  <li class="list-group-item list-group-item-light">Completed Predictions: ooferino</li>
+                  <li class="list-group-item list-group-item-light">Percent Correct: ergsherg %</li>
+                  <li class="list-group-item list-group-item-light">Prediction Gain: derp</li>
+                  <li class="list-group-item list-group-item-light">Prediction Loss: adsf</li>
+                  <li class="list-group-item list-group-item-light">Prediction Gain-Loss: fdsa</li>
+                </ul>
+              </p>
+            </div>
+            --->
+
+          </div>
+        </div>
+    {% endif %}
+  </body>
+</div>
+{% endblock content %}
