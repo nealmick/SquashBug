@@ -11,10 +11,11 @@ margin-left: auto;
 ">
     <h1 style="color:white">Edit Bug: </h1>
     <hr>
-    <button style="position: relative; " class="btn btn-outline-info" onclick="save()">Save</button>
-    <button style="position: relative; " class="btn btn-outline-info" onclick="completeBug()">Complete</button>
 
-    <button style="position: relative; " class="btn btn-outline-info" onclick="delBug()">Delete</button>
+    <button style="position: relative; "  id="edit-bug" class="btn btn-outline-info" onclick="save()">Save</button>
+    <button style="position: relative; "  id="complete-bug" class="btn btn-outline-info" onclick="completeBug()">Complete</button>
+
+    <button style="position: relative; "  id="delete-bug" class="btn btn-outline-info" onclick="delBug()">Delete</button>
 
     <hr>
         {% if s == 'red' %}

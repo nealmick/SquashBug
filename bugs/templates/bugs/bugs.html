@@ -23,32 +23,33 @@
 
   <div class="col-md-6" style="padding-left: 10px;padding-right: 10px;">
         <div class="content-section" style="width: col-md-6">
-        <h1>My Bugs:</h1>
+        <h1>Bugs:</h1>
           <hr>
+
         {% for bug in bugs %}
             
             
 
                   <div>
-                    <div class="content-section ff">
+                    <div class="content-section ff" >
 
                       {% if bug.severity == 'red' %}
     
-                      <p style="font-size: 32; "><span style="color: #cf2608;"> {{bug.title}} </span> - {{bug.date}}</p>
+                      <p style="font-size: 22px; "><span style="color: #cf2608;"> {{bug.title}} </span> - {{bug.date}}</p>
                       {% endif %}
                       {% if bug.severity == 'yellow' %}
-                      <p style="font-size: 32;"><span style="color: #b7ba04;"> {{bug.title}} </span> - {{bug.date}}</p>
+                      <p style="font-size: 22px;"><span style="color: #b7ba04;"> {{bug.title}} </span> - {{bug.date}}</p>
     
                           
                       {% endif %}
                       {% if bug.severity == 'green' %}
-                      <p style="font-size: 32;"><span style="color: #24a607;">{{bug.title}} </span> - {{bug.date}}</p>
+                      <p style="font-size: 22px;"><span style="color: #24a607;">{{bug.title}} </span> - {{bug.date}}</p>
     
                       {% endif %}
                   
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'edit-bug' bug.pk%}';">Edit</button>
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'complete-bug' bug.pk%}'">Complete</button>
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'del-bug' bug.pk%}';">Delete</button>
+                      <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href='{% url 'edit-bug' bug.pk%}';">Edit</button>
+                      <button style="position: relative; " id="complete-bug" class="btn btn-outline-info" onclick="location.href='{% url 'complete-bug' bug.pk%}'">Complete</button>
+                      <button style="position: relative; " id="delete-bug" class="btn btn-outline-info" onclick="location.href='{% url 'del-bug' bug.pk%}';">Delete</button>
 
 
                       </form>
@@ -56,6 +57,11 @@
 
               </div
             </div>
+        {% empty %}
+            <h1>You have no Bugs!</h1>
+            <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href = '{% url 'new-bug'%}';"  >Create a new Bug</button>
+
+
         {% endfor %}
     
           <center>
@@ -88,7 +94,7 @@
       
         <div class="col-md-6 " style="padding-left: 10px;padding-right: 10px; overflow:hidden;">
           <div class="content-section" style="overflow:hidden;">
-            <h3>Bug Distribution: </h3>
+            <h2>Bug Distribution: </h2s>
             <hr>
 
 
@@ -96,7 +102,7 @@
               <canvas id="myChart"></canvas>
 
            </div>
-           <div style="margin-top: 15%;height: 40%; width: 50%; float:right">
+           <div style="margin-top: 15%;height: 40%; width: 50%; float:right; margin-bottom: 115px;">
             <canvas id="myChart2"></canvas>
            </div>
 
@@ -108,7 +114,7 @@
           </div>
 
             <div class="content-section" style="margin-top: 20px;">
-              <h3>Bug Stats:</h3>
+              <h2>Bug Stats:</h2>
               <hr>
                 <ul class="list-group">
 

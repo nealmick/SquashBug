@@ -48,9 +48,9 @@
     
                       {% endif %}
                   
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'edit-bug' bug.pk%}';">Edit</button>
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'uncomplete-bug' bug.pk%}'">Uncomplete</button>
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'del-bug' bug.pk%}';">Delete</button>
+                      <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href='{% url 'edit-bug' bug.pk%}';">Edit</button>
+                      <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href='{% url 'uncomplete-bug' bug.pk%}'">Uncomplete</button>
+                      <button style="position: relative; " id="delete-bug"class="btn btn-outline-info" onclick="location.href='{% url 'del-bug' bug.pk%}';">Delete</button>
 
 
                       </form>

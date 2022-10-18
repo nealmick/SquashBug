@@ -15,12 +15,12 @@ const data = {
       label: 'My First Dataset',
       data: [rb, yb, gb],
       backgroundColor: [
-        '#cf2608',
-        '#b7ba04',
-        '#24a607'
+        '#8c210e',
+        '#858712',
+        '#196109'
       ],
       hoverOffset: 10,
-      borderColor: ['#737373', '#737373', '#737373 '],
+      borderColor: ['#404040', '#404040', '#404040 '],
       borderWidth: 2
     }]
   };
@@ -55,7 +55,6 @@ const ub = JSON.parse(document.getElementById('totalBugs').textContent);
     labels: [
       'Completed',
       'Uncomplete',
-      'Total'
     ],
     datasets: [{
       label: 'Bugs',
@@ -66,7 +65,7 @@ const ub = JSON.parse(document.getElementById('totalBugs').textContent);
         '#737373'
       ],
       hoverOffset: 5,
-      borderColor: ['#17a2b8', '#17a2b8', '#17a2b8 '],
+      borderColor: ['#404040', '#404040', '#404040 '],
       borderWidth: 2
     }]
   };

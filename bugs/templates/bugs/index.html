@@ -11,10 +11,13 @@
     <center>
         <h1 style="color: white">Bug Tracker!!</h1>
     </center>
-    
+        <hr>
         <p style="font-size: 22px;">
             This project is meant to help you destroy bugs with maximum effectiveness. Track Bugs from there First sightings, to there inevitable demise, then store them incase you find a similar bug in the future.
-
+            <br>
+            <br>
+            The web app was built using the Django Python library using a MVC design architecture. The app includes users creation, login, password reset, and logout. Each user has a profile which keeps information such as, profile pictures, amounts of each bug type, and completed bugs. The main view is ordered by date and paginated by a list of the users bugs. The bug list view also contains graphs displaying the distrubution of bugs categorically. Each Bug model contains a severity rating, title, description, date created, foreign user key, and completed values. Bugs can be reported using the new bug form.
+        
         </p>
     </div>  
 {% endblock content %}

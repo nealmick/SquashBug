@@ -41,7 +41,8 @@ def uncompleteBug(request, pk):
     #dt_str = datetime.datetime.strftime(timezone.now,'%Y-%m-%d %H:%M:%S')
     #b.update(date=dt_str)
     p = Profile.objects.filter(user=request.user)
-    p.update(userCompletedBugs=p.values('userCompletedBugs')[0]['userCompletedBugs']-1)
+    if p.values('userCompletedBugs')[0]['userCompletedBugs']>0:
+        p.update(userCompletedBugs=p.values('userCompletedBugs')[0]['userCompletedBugs']-1)
     return redirect('home-bugs')
 
 

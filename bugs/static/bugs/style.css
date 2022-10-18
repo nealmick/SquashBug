@@ -7,7 +7,7 @@ body {
 
 
 .site-header .navbar-nav .nav-link {
-    color: #333333;
+    color: #ffffff;
 
 
 }
@@ -23,7 +23,7 @@ body {
 }
 
 .bg-steel {
-    background-color: #17a2b8;
+    background-color: #333333;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, .4);
 }
 
@@ -32,7 +32,7 @@ body {
     padding: 10px 20px;
     padding-left: -10px;
     
-    border: 2px solid #17a2b8;
+    border: 2px solid #737373;
     border-radius: 7px;
     margin-bottom: 10px;
     color: white;
@@ -43,7 +43,7 @@ body {
 .content-section2 {
     background: #333333;
     padding: 10px 20px;
-    border: 2px solid #17a2b8;
+    border: 2px solid #737373;
     border-radius: 7px;
     margin-bottom: 10px;
     color: white;
@@ -55,7 +55,7 @@ body {
 .content-section2:hover {
     background: #333333;
     padding: 10px 20px;
-    border: px solid #17a2b8;
+    border: px solid #737373;
     border-radius: 7px;
     margin-bottom: 10px;
     color: white;
@@ -96,7 +96,7 @@ body {
   transition: all 0.4s ease-in-out;
   background: #333333;
   padding: 7px;
-  border-color: #17a2b8;
+  border-color: #737373;
   border-radius: 3px;
   color: white;
   box-shadow: 4px 8px 16px rgba(0, 0, 0, .5);
@@ -129,7 +129,7 @@ body {
   position: relative;
 
 
-  background-color: #17a2b8;
+  background-color: #737373;
 
 }
 
@@ -165,7 +165,7 @@ body {
   left: 0;
 }
 #navigation-bar a {
-  color: #333333;
+  color: white;
   font-size: 16px;
   text-decoration: none;
   text-align: center;
@@ -175,7 +175,7 @@ body {
   transition: all 0.3s ease;
 }
 #navigation-bar a:hover {
-  color: white;
+  color: #737373;
 }
 #navigation-bar a::before {
   content: "";
@@ -185,7 +185,7 @@ body {
   left: 50%;
   bottom: 0;
   height: 2px;
-  background-color: white;
+  background-color: #737373;
 }
 #navigation-bar a:hover::before {
   right: 0;
@@ -220,4 +220,93 @@ select {
   color: #fff;
   width: 100px;
   height: 50px;
+}
+
+.btn{
+  color: white;
+  background: #404040;
+  border: 2px solid #737373;
+}
+.btn:hover:active{
+  color: white;
+  background: #404040;
+  border: 2px solid white;
+}
+.btn:active{
+  color: white;
+  background: #404040;
+  border: 2px solid white;
+}
+.btn-outline-info :active{
+  color: white;
+  background: #404040;
+  border: 2px solid #737373;
+  background-color: white;
+  border-color: whites;
+}
+.btn-outline-info:hover {
+  color: #fff;
+  background: #404040;
+  border: 2px solid white;
+}
+.btn-outline-info:active {
+  color: #fff;
+  background: #404040;
+  border: 2px solid white;
+}
+
+.btn-info:hover {
+  color: #fff;
+  background: #404040;
+  border: 2px solid white;
+}
+
+.btn-outline-info:not(:disabled):not(.disabled).active, .btn-outline-info:not(:disabled):not(.disabled):active, .show>.btn-outline-info.dropdown-toggle{
+  color: #fff;
+  background: #404040;
+  border: 2px solid white;
+}
+.btn-outline-info.focus, .btn-outline-info:focus{
+  color: #fff;
+  background: #404040;
+  border: 2px solid white;
+  box-shadow: 0 0 0 0.2rem #404040;
+
+}
+
+.btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active, .show>.btn-info.dropdown-toggle{
+  color: #fff;
+  background: #404040;
+  border: 2px solid white;
+  box-shadow: 0 0 0 0.2rem #404040;
+
+}
+#complete-bug{
+  color: #fff;
+  background: #404040;
+  border: 2px solid #196109;
+}
+#complete-bug:hover{
+  color: #196109;
+  background: #404040;
+}
+
+#delete-bug{
+  color: #fff;
+  background: #404040;
+  border: 2px solid #8c210e;
+}
+#delete-bug:hover{
+  color: #8c210e;
+  background: #404040;
+}
+
+#edit-bug{
+  color: #fff;
+  background: #404040;
+  border: 2px solid #737373;
+}
+#edit-bug:hover{
+  background: #404040;
+  border: 2px solid #fff;
 }

@@ -36,8 +36,9 @@
               <div class="navbar-nav" id="navigation-bar">
 
                 {% if user.is_authenticated %}
-                  <a class="nav-item nav-link" href="{% url 'new-bug'%}"><i class="fas fa-plus "></i><span class=""> New Bug</span></a>
-                  <a class="nav-item nav-link" href="{% url 'home-bugs'%}"><i class="fas fa-list-ul"></i><span> My Bugs</span></a>
+                <a class="nav-item nav-link" href="{% url 'new-bug'%}"><i class="fas fa-plus "></i><span class=""> New Bug</span></a>
+                <a class="nav-item nav-link" href="{% url 'home-bugs'%}"><i class="fas fa-list-ul"></i><span> Bugs</span></a>
+                  <a class="nav-item nav-link" href="{% url 'completed-bugs'%}"><i class="fa fa-solid fa-folder-open"></i><span> Completed </span></a>
                   <a class="nav-item nav-link" href="{% url 'profile'%}"><i class="far fa-user"></i></i><span> Profile</span></a>
                   <a class="nav-item nav-link" href="{% url 'logout'%}"><i class="fas fa-sign-in-alt"></i><span> Logout</span></a>
                 {% else %}
