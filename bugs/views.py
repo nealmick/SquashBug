@@ -16,6 +16,8 @@ import functools, random
 from django.contrib import messages
 from .forms import BugUpdateForm
 from django.db.models import Q
+from django.utils import timezone
+import datetime
 # Create your views here.
 
 
@@ -32,6 +34,15 @@ def completeBug(request, pk):
     p.update(userCompletedBugs=p.values('userCompletedBugs')[0]['userCompletedBugs']+1)
     return redirect('home-bugs')
 
+def uncompleteBug(request, pk):
+    b = Bug.objects.filter(pk=pk)
+    b.update(open=True)
+    #testeddate = '4/25/2015'
+    #dt_str = datetime.datetime.strftime(timezone.now,'%Y-%m-%d %H:%M:%S')
+    #b.update(date=dt_str)
+    p = Profile.objects.filter(user=request.user)
+    p.update(userCompletedBugs=p.values('userCompletedBugs')[0]['userCompletedBugs']-1)
+    return redirect('home-bugs')
 
 
 def delBug(request, pk):
@@ -87,6 +98,39 @@ def saveBug(request):
 
     return redirect('home-bugs')
 
+
+
+class CompletedListView(ListView, LoginRequiredMixin):
+    model = Bug
+    template_name = 'bugs/completed.html'
+    ordering = ['-date']
+    paginate_by = 6
+    context_object_name = 'bugs'
+    context = 'bugs'
+
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        context = super(CompletedListView, self).get_context_data(**kwargs)
+        p = Profile.objects.filter(user=self.request.user)
+        
+        context['ub'] =  p.values('userBugs')[0]['userBugs']
+        context['ob'] =  p.values('userBugs')[0]['userBugs']-p.values('userCompletedBugs')[0]['userCompletedBugs']
+        context['cb'] =  p.values('userCompletedBugs')[0]['userCompletedBugs']
+        context['rb'] =  p.values('redBugs')[0]['redBugs']
+        context['yb'] =  p.values('yellowBugs')[0]['yellowBugs']
+        context['gb'] =  p.values('greenBugs')[0]['greenBugs']
+
+
+        return context
+    def get_queryset(self, **kwargs):
+        user = self.request.user
+
+        return Bug.objects.filter(author=user).order_by('-date').exclude(open=True)
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+       
+        return super().form_valid(form)
 
 class BugListView(ListView, LoginRequiredMixin):
     model = Bug

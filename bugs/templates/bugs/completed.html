@@ -1,0 +1,115 @@
+
+{% extends "bugs/base.html"%}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+
+
+{% block content%}
+
+
+  {% if request.user.is_authenticated %}
+
+
+
+  {{ rb|json_script:"redBugs" }}
+  {{ yb|json_script:"yellowBugs" }}
+  {{ gb|json_script:"greenBugs" }}
+  {{ cb|json_script:"completedBugs" }}
+  {{ ob|json_script:"uncompleteBugs" }}
+  {{ ub|json_script:"totalBugs" }}
+
+
+        <div class="content-section col-md-6 center" style="margin-right: auto;
+        margin-left: auto;">
+        <center>
+        <h1 >Completed Bugs:</h1>
+        </center>
+          <hr>
+        {% for bug in bugs %}
+            
+            
+
+                  <div>
+                    <div class="content-section ff">
+
+                      {% if bug.severity == 'red' %}
+    
+                      <p style="font-size: 32; "><span style="color: #cf2608;"> {{bug.title}} </span> - {{bug.date}}</p>
+                      {% endif %}
+                      {% if bug.severity == 'yellow' %}
+                      <p style="font-size: 32;"><span style="color: #b7ba04;"> {{bug.title}} </span> - {{bug.date}}</p>
+    
+                          
+                      {% endif %}
+                      {% if bug.severity == 'green' %}
+                      <p style="font-size: 32;"><span style="color: #24a607;">{{bug.title}} </span> - {{bug.date}}</p>
+    
+                      {% endif %}
+                  
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'edit-bug' bug.pk%}';">Edit</button>
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'uncomplete-bug' bug.pk%}'">Uncomplete</button>
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'del-bug' bug.pk%}';">Delete</button>
+
+
+                      </form>
+                  </div>  
+
+              </div
+            </div>
+        {% endfor %}
+    
+          <center>
+
+            <p>
+...
+            </p>
+          {% if is_paginated %}
+            {% if page_obj.has_previous %}
+              <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+          {% endif %}
+          </center>
+        </div>
+      </div>
+      
+          <!---
+          site prediction stats.....
+          <div class="col-md-13">
+            <div class="content-section">
+              <h3>Site Prediction Stats:</h3>
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-light">Correct Completed Predictions: a stat</li>
+                  <li class="list-group-item list-group-item-light">Completed Predictions: ooferino</li>
+                  <li class="list-group-item list-group-item-light">Percent Correct: ergsherg %</li>
+                  <li class="list-group-item list-group-item-light">Prediction Gain: derp</li>
+                  <li class="list-group-item list-group-item-light">Prediction Loss: adsf</li>
+                  <li class="list-group-item list-group-item-light">Prediction Gain-Loss: fdsa</li>
+                </ul>
+              </p>
+            </div>
+            --->
+
+          </div>
+        </div>
+    {% endif %}
+  </body>
+</div>
+<script  src="{% static 'bugs/myChart.js'%}"></script>
+
+{% endblock content %}
