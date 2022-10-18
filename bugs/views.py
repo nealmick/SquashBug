@@ -15,6 +15,7 @@ import requests, json, time, operator, pickle, random
 import functools, random
 from django.contrib import messages
 from .forms import BugUpdateForm
+from django.db.models import Q
 # Create your views here.
 
 
@@ -24,6 +25,67 @@ def index(request):
     context = {}
     return render(request, 'bugs/index.html',context)
 
+def completeBug(request, pk):
+    b = Bug.objects.filter(pk=pk)
+    b.update(open=False)
+    p = Profile.objects.filter(user=request.user)
+    p.update(userCompletedBugs=p.values('userCompletedBugs')[0]['userCompletedBugs']+1)
+    return redirect('home-bugs')
+
+
+
+def delBug(request, pk):
+    b = Bug.objects.filter(pk=pk)
+    s = b.values('severity')[0]['severity']
+
+    p = Profile.objects.filter(user=request.user)
+    p.update(userBugs=p.values('userBugs')[0]['userBugs']-1)
+    if s =="green":
+        p.update(greenBugs=p.values('greenBugs')[0]['greenBugs']-1)
+    if s =="yellow":
+        p.update(yellowBugs=p.values('yellowBugs')[0]['yellowBugs']-1)
+
+    if s =="red":
+        p.update(redBugs=p.values('redBugs')[0]['redBugs']-1)
+        
+    b.delete()
+
+    return redirect('home-bugs')
+def saveBug(request):
+    context = {}
+
+    p = Profile.objects.filter(user=request.user)
+    id_title = request.GET['id_title']
+    id_severity = request.GET['id_severity']
+    id_description = request.GET['id_description']
+    b = Bug.objects.filter(pk=request.GET['pk'])
+    b.update(title=id_title)
+    b.update(description=id_description)
+
+    s = b.values('severity')[0]['severity']
+    print(id_severity)
+    if s != id_severity:
+        if s =="green":
+            p.update(greenBugs=p.values('greenBugs')[0]['greenBugs']-1)
+        if s =="yellow":
+            p.update(yellowBugs=p.values('yellowBugs')[0]['yellowBugs']-1)
+
+        if s =="red":
+            p.update(redBugs=p.values('redBugs')[0]['redBugs']-1)
+        if id_severity == 'green':
+            p.update(greenBugs=p.values(id_severity+'Bugs')[0][id_severity+'Bugs']+1)
+        if id_severity == 'yellow':
+            p.update(yellowBugs=p.values(id_severity+'Bugs')[0][id_severity+'Bugs']+1)
+        if id_severity == 'red':
+            p.update(redBugs=p.values(id_severity+'Bugs')[0][id_severity+'Bugs']+1)
+    
+    b.update(severity=id_severity)
+
+    #d = b.values('description')[0]['description']
+    #s = b.values('severity')[0]['severity']
+
+
+    return redirect('home-bugs')
 
 
 class BugListView(ListView, LoginRequiredMixin):
@@ -50,7 +112,8 @@ class BugListView(ListView, LoginRequiredMixin):
         return context
     def get_queryset(self, **kwargs):
         user = self.request.user
-        return Bug.objects.filter(author=user).order_by('-date')
+
+        return Bug.objects.filter(author=user).order_by('-date').exclude(open=False)
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -102,6 +165,8 @@ def editBug(request,pk):
     context['t'] = t
     context['d'] = d
     context['s'] = s
+    context['pk'] = pk
+
     return render(request, 'bugs/edit.html', context)
 
 @login_required
@@ -118,3 +183,8 @@ def FeditBug(request):
         'bug_form': bug_form,
     }
     return render(request, 'bugs/edit.html', context)
+
+
+
+
+    

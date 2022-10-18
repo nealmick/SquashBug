@@ -1,5 +1,9 @@
+
 {% extends "bugs/base.html"%}
 {% block content%}
+{% load static %}
+
+
 <div class="content-section center col-md-9" style="
 margin-right: auto;
 margin-left: auto;
@@ -7,9 +11,11 @@ margin-left: auto;
 ">
     <h1 style="color:white">Edit Bug: </h1>
     <hr>
-    <button style="position: relative; " class="btn btn-outline-info" onclick="">Save</button>
-    <button style="position: relative; " class="btn btn-outline-info" onclick="">Complete</button>
-    <button style="position: relative; " class="btn btn-outline-info" onclick="">Delete</button>
+    <button style="position: relative; " class="btn btn-outline-info" onclick="save()">Save</button>
+    <button style="position: relative; " class="btn btn-outline-info" onclick="completeBug()">Complete</button>
+
+    <button style="position: relative; " class="btn btn-outline-info" onclick="delBug()">Delete</button>
+
     <hr>
         {% if s == 'red' %}
         <select name="severity" class="select" required="" id="id_severity" > <option value="red">Red</option><option value="yellow">yellow</option> <option value="green">green</option> 
@@ -34,9 +40,12 @@ margin-left: auto;
 
     <hr>
 
-    <textarea name="description" cols="40" rows="10" maxlength="500" class="textarea" id="id_description">{{ d }}</textarea>
+    <textarea name="description" cols="40" rows="10" maxlength="1499" class="textarea" id="id_description">{{ d }}</textarea>
     <br>
 
 </div>
+
+<script  src="{% static 'bugs/update.js'%}"></script>
+
 
 {% endblock content%}

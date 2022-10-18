@@ -20,7 +20,7 @@ class Bug(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now)
     title = models.CharField(null=True, blank=True, max_length=50)
-    description = models.TextField(null=True, blank=True, max_length=500)
+    description = models.TextField(null=True, blank=True, max_length=1500)
     open = models.BooleanField(default=True)
     def __str__(self):
         return str(self.author)

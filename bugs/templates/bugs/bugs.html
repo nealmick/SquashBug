@@ -2,42 +2,57 @@
 {% extends "bugs/base.html"%}
 {% load crispy_forms_tags %}
 
+{% load static %}
 
 
 
 {% block content%}
 
+
   {% if request.user.is_authenticated %}
+
+
+
+  {{ rb|json_script:"redBugs" }}
+  {{ yb|json_script:"yellowBugs" }}
+  {{ gb|json_script:"greenBugs" }}
+  {{ cb|json_script:"completedBugs" }}
+  {{ ob|json_script:"uncompleteBugs" }}
+  {{ ub|json_script:"totalBugs" }}
+
 
   <div class="col-md-6" style="padding-left: 10px;padding-right: 10px;">
         <div class="content-section" style="width: col-md-6">
         <h1>My Bugs:</h1>
-
+          <hr>
         {% for bug in bugs %}
             
             
 
                   <div>
-                    <div onclick="location.href='{% url 'edit-bug' bug.pk%}';"class="content-section ff">
+                    <div class="content-section ff">
 
                       {% if bug.severity == 'red' %}
     
-                      <p style="font-size: 22; "><span style="color: #cf2608;"> {{bug.title}} </span> - {{bug.date}}</p>
+                      <p style="font-size: 32; "><span style="color: #cf2608;"> {{bug.title}} </span> - {{bug.date}}</p>
                       {% endif %}
                       {% if bug.severity == 'yellow' %}
-                      <p style="font-size: 22;"><span style="color: #b7ba04;"> {{bug.title}} </span> - {{bug.date}}</p>
+                      <p style="font-size: 32;"><span style="color: #b7ba04;"> {{bug.title}} </span> - {{bug.date}}</p>
     
                           
                       {% endif %}
                       {% if bug.severity == 'green' %}
-                      <p style="font-size: 22;"><span style="color: #24a607;">{{bug.title}} </span> - {{bug.date}}</p>
+                      <p style="font-size: 32;"><span style="color: #24a607;">{{bug.title}} </span> - {{bug.date}}</p>
     
                       {% endif %}
                   
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="">Edit</button>
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="">Complete</button>
-                      <button style="position: relative; " class="btn btn-outline-info" onclick="">Delete</button>
-                  </div>
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'edit-bug' bug.pk%}';">Edit</button>
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'complete-bug' bug.pk%}'">Complete</button>
+                      <button style="position: relative; " class="btn btn-outline-info" onclick="location.href='{% url 'del-bug' bug.pk%}';">Delete</button>
+
+
+                      </form>
+                  </div>  
 
               </div
             </div>
@@ -71,22 +86,39 @@
         </div>
       </div>
       
-        <div class="col-md-6 " style="padding-left: 10px;padding-right: 10px;">
-          <div class="content-section">
-            <h3>Bug Distribution Graph</h3>
+        <div class="col-md-6 " style="padding-left: 10px;padding-right: 10px; overflow:hidden;">
+          <div class="content-section" style="overflow:hidden;">
+            <h3>Bug Distribution: </h3>
+            <hr>
+
+
+            <div style="height: 40%; width: 50%; float:left">
+              <canvas id="myChart"></canvas>
+
+           </div>
+           <div style="margin-top: 15%;height: 40%; width: 50%; float:right">
+            <canvas id="myChart2"></canvas>
+           </div>
+
+
+          
+
+
             
           </div>
 
             <div class="content-section" style="margin-top: 20px;">
               <h3>Bug Stats:</h3>
+              <hr>
                 <ul class="list-group">
+
+                  <li class="list-group-item list-group-item-light"><span style="color: #cf2608;"> Red Bugs: {{rb}} </span></li>
+                  <li class="list-group-item list-group-item-light"><span style="color: #b7ba04;"> Yellow Bugs: {{yb}} </span></li>
+                  <li class="list-group-item list-group-item-light"><span style="color: #24a607;">Green Bugs: {{gb}} </span></li>
+
+                  <li class="list-group-item list-group-item-light">Completed Bugs {{cb}}</li>
+                  <li class="list-group-item list-group-item-light">Uncomplete Bugs {{ob}}</li>
                   <li class="list-group-item list-group-item-light">Total Bugs {{ub}}</li>
-                  <li class="list-group-item list-group-item-light">Uncomplate Bugs {{ob}}</li>
-                  <li class="list-group-item list-group-item-light">Complete Bugs {{cb}}</li>
-                  <li class="list-group-item list-group-item-light">Red Bugs {{rb}}</li>
-                  <li class="list-group-item list-group-item-light">Yellow Bugs {{yb}}</li>
-                  <li class="list-group-item list-group-item-light">Green Bugs {{gb}}</li>
-                  <li class="list-group-item list-group-item-light">Closed Bugs {{cb}}</li>
 
 
                 </ul>
@@ -115,4 +147,6 @@
     {% endif %}
   </body>
 </div>
+<script  src="{% static 'bugs/myChart.js'%}"></script>
+
 {% endblock content %}
