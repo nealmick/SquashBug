@@ -1,0 +1,41 @@
+
+
+
+
+Bug Catcher Software requirement specifications:
+Base
+	!navbar
+  !basics
+
+Users:
+	!profile
+	!login
+	!out
+	!reset
+	!register
+Bugs
+	!bug edit view
+	!bug list view
+		!10 last bugs
+		!user stats
+		!site stats
+		!maybe a chart 2 of em
+	!bug complete list view
+	!bug create view
+		!text box with a few drop downs
+		!make crispy forms bigger
+	!bug model
+		!id pk
+		!tittle
+		!description
+		!severity 
+		**bug type
+		!status
+		!date created
+
+Future:
+Figure out multiple user interactions and collaboration on bugs
+
+
+
+
