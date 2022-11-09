@@ -7,18 +7,17 @@ margin-right: auto;
 margin-left: auto;
 ">
       <div class="content-section">
-        <div class="fff">
           <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-              <legend class="border-bottom mb-4">New Bug:</legend>
+                  <p style="opacity: 1;font-size: 42px;color: white;text-decoration: underline;margin-bottom: 2px">New Ticket</p>
               {{ form|crispy }}
+
             </fieldset>
             <div class="form-group">
               <button class="btn btn-outline-info" type="submit">Create Bug!</button>
             </div>
           </form>
-        </div>
       </div>
     </div>
       

@@ -1,0 +1,28 @@
+{% extends "bugs/base.html"%}
+{% load crispy_forms_tags %}
+{% block content%}
+  <div class="content-section center col-md-8" style="
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 25px;
+  ">
+    <body class="background2">
+
+
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+      <div class="media-body">
+        <h2 class="account-heading"style="margin-bottom: .1rem;">{{ user.username }}</h2>
+        
+        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="">{{user.email}} </span></p>
+        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="">Open Tickets: {{ob}} </span></p>
+        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="">Closed Tickets: {{cb}} </span></p>
+        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="">Joined: {{ user.date_joined }}</span></p>
+        
+        
+    
+      </div>
+    </div>
+    
+
+  {% endblock content%}

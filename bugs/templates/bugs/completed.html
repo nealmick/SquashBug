@@ -24,7 +24,7 @@
         <div class="content-section col-md-6 center" style="margin-right: auto;
         margin-left: auto;">
         <center>
-        <h1 >Completed Bugs:</h1>
+        <h1 >Closed Bugs:</h1>
         </center>
           <hr>
         {% for bug in bugs %}
@@ -34,22 +34,22 @@
                   <div>
                     <div class="content-section ff">
 
-                      {% if bug.severity == 'red' %}
+                      {% if bug.severity == 'High' %}
     
-                      <p style="font-size: 32; "><span style="color: #cf2608;"> {{bug.title}} </span> - {{bug.date}}</p>
+                      <p style="font-size: 32; "><span style="color: #17a2b8;"> {{bug.title}} </span> - {{bug.date}}</p>
                       {% endif %}
-                      {% if bug.severity == 'yellow' %}
-                      <p style="font-size: 32;"><span style="color: #b7ba04;"> {{bug.title}} </span> - {{bug.date}}</p>
+                      {% if bug.severity == 'Medium' %}
+                      <p style="font-size: 32;"><span style="color: white;"> {{bug.title}} </span> - {{bug.date}}</p>
     
                           
                       {% endif %}
-                      {% if bug.severity == 'green' %}
-                      <p style="font-size: 32;"><span style="color: #24a607;">{{bug.title}} </span> - {{bug.date}}</p>
+                      {% if bug.severity == 'Low' %}
+                      <p style="font-size: 32;"><span style="color: #A0A0A0;">{{bug.title}} </span> - {{bug.date}}</p>
     
                       {% endif %}
                   
                       <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href='{% url 'edit-bug' bug.pk%}';">Edit</button>
-                      <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href='{% url 'uncomplete-bug' bug.pk%}'">Uncomplete</button>
+                      <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href='{% url 'uncomplete-bug' bug.pk%}'">Open</button>
                       <button style="position: relative; " id="delete-bug"class="btn btn-outline-info" onclick="location.href='{% url 'del-bug' bug.pk%}';">Delete</button>
 
 

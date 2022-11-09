@@ -2,51 +2,379 @@
 {% extends "bugs/base.html"%}
 {% block content%}
 {% load static %}
+{% load crispy_forms_tags %}
 
-
-<div class="content-section center col-md-9" style="
+<div data-aos="zoom-in-right" class="content-section center col-lg-7" style="
 margin-right: auto;
 margin-left: auto;
+margin-top: 25px;
 
 ">
-    <h1 style="color:white">Edit Bug: </h1>
-    <hr>
+<center>
+    <p style="opacity: 1;font-size: 38px;color: white;text-decoration: underline;margin-bottom: 2px">Ticket # {{pk}}</p>
 
-    <button style="position: relative; "  id="edit-bug" class="btn btn-outline-info" onclick="save()">Save</button>
-    <button style="position: relative; "  id="complete-bug" class="btn btn-outline-info" onclick="completeBug()">Complete</button>
+    <p style="margin-bottom: 0px;color:grey;opacity: .8;font-size: 12px;text-decoration: 2px">Created: {{ date }}</p>
 
-    <button style="position: relative; "  id="delete-bug" class="btn btn-outline-info" onclick="delBug()">Delete</button>
-
-    <hr>
-        {% if s == 'red' %}
-        <select name="severity" class="select" required="" id="id_severity" > <option value="red">Red</option><option value="yellow">yellow</option> <option value="green">green</option> 
+    <p style="margin-bottom: 0px;color:grey;opacity: .8;font-size: 12px;text-decoration: 2px">by user: <a style="text-decoration: underline;color:grey"href="{% url 'profile-view' author %}">{{ author }}</a></p>
 
 
-        {% endif %}
-        {% if s == 'yellow' %}
-        <select name="severity" class="select" required="" id="id_severity"> <option value="yellow">Yellow</option> <option value="red">red</option><option value="green">green</option> 
-
-            
-        {% endif %}
-        {% if s == 'green' %}
-        <select name="severity" class="select" required="" id="id_severity"> <option value="green">Green</option><option value="yellow">yellow</option> <option value="red">red</option> 
-
-
-        {% endif %}
-</select>
-
-
-        <input type="text" name="title" maxlength="50" class="textinput textInput" id="id_title" value="{{ t }}">
-
-
-    <hr>
-
-    <textarea name="description" cols="40" rows="10" maxlength="1499" class="textarea" id="id_description">{{ d }}</textarea>
     <br>
+</center>
+<div style="margin-left:5% ">
+    <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href='{% url 'home-bugs' 'v'%}';"><i class="fas fa-list-ul"></i>Dashboard</button>
+    <button style="position: relative; "  id="complete-bug" class="btn btn-outline-info" onclick="completeBug()"><i class="fa fa-solid fa-check"></i>Complete</button>
+
+    <button style="position: relative; "  id="delete-bug" class="btn btn-outline-info" onclick="delBug()"><i class="far fa-trash-alt"></i>Delete</button>
 
 </div>
 
+
+<div class="row">
+
+    <div class="" style="color: grey;width: 30%; float:left; margin: 0px;">
+        <br>
+        {% if s == 'High' %} 
+        <select onchange="supdate()" name="severity" style="margin-top: 0px;padding: 0px;border: 1px solid #0d6370;height: 45px;margin-left: 20%;width: 100%;"class="select" required="" id="id_severity" > <option value="High">High</option><option value="Medium">Medium</option> <option value="Low">Low</option> 
+
+
+            {% endif %}
+            {% if s == 'Medium' %}
+            <select onchange="supdate()"name="severity" style="margin-top: 0px;padding: 0px;border: 1px solid   #0d6370;height: 45px;margin-left: 20%;width: 100%; "class="select" required="" id="id_severity"> <option value="Medium">Medium</option> <option value="High">High</option><option value="Low">Low</option> 
+
+
+                {% endif %}
+                {% if s == 'Low' %}
+                <select onchange="supdate()"name="severity" style="margin-top: 0px;padding: 0px;border: 1px solid #0d6370;height: 45px;margin-left: 20%; width: 100%;"class="select" required="" id="id_severity"> <option value="Low">Low</option><option value="Medium">Medium</option> <option value="High">High</option> 
+
+
+                    {% endif %}
+                </select>
+
+
+            </div>
+            <div style='width: 70%; float:right;'>
+                <input type="text" style="width: 87%;height: 45px;font-size: 32px;margin-left: 5%;margin-top:24px;" name="title" maxlength="200" class="textinput textInput" id="id_title" value="{{ t }}">
+            
+            </div>
+
+
+
+
+
+
+            <div style='margin-left: 5%;'>
+
+                <textarea name="description" style="height:150px;width: 89.7%;margin-top:3px;font-size: 16px;"cols="40" rows="10" maxlength="1499" class="textarea" id="id_description">{{ d }}</textarea>
+            </div>
+
+        </div>
+
+
+            <div class="row"style="margin-top: 3px;">
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+        
+
+
+
+<div data-aos="zoom-in-left" id="user_div"class="content-section center col-lg-4" style="
+
+margin-top: 25px;
+overflow-y: scroll;
+overflow-x: hidden;
+margin-left: 0px;
+margin-right: 0px;
+">
+
+<div class="row">
+
+            <center>
+                <p style="padding: 20px;opacity: 1;font-size: 28px;color: white;text-decoration: underline;margin-bottom: 5px">Users</p>
+            </center>
+
+
+
+
+
+
+
+
+
+
+                <div class="" style="width: 90%; margin: 0px;margin-top: 13px;">
+
+
+                    <div id="add_userD"style="margin-right: 0%; 
+                    overflow: hidden;
+
+                    border-radius: 6px;
+                    color: #fff;
+                    height: 50px;
+                    margin-top: 10px;
+                    font-size: 20px;
+                    margin-left: 10.5%;
+
+                    ">
+
+                    <input onClick="this.setSelectionRange(0, this.value.length)" type="text" style="background-color: #282828;
+                    height: 45px;width: 100%;font-size: 14px;"name="title" maxlength="250" class=" textinput textInput" id="add_userI" value="TypeUser">
+
+
+                    <button style="position: absolute; margin-left: auto;margin-left: -45px;margin-top: 9px;padding: 3px;
+                    height: 29px;
+                    color: #17a2b8;
+                    background: #404040;
+                    border: 1px solid #292828;
+                    " id="add_userB" class="btn btn-outline-info" onclick="addUser()">Add</button>
+
+
+                </div>
+
+
+
+                    <div id="add_groupD"style="margin-right: 0%; 
+                    overflow: hidden;
+
+                    border-radius: 6px;
+                    color: #fff;
+                    height: 50px;
+                    margin-top: 5px;
+                    font-size: 20px;
+                    margin-left: 10.5%;
+                    
+                    ">
+
+                    <input onClick="this.setSelectionRange(0, this.value.length)" type="text" style="background-color: #282828;height: 45px;width: 100%;font-size: 14px;"name="title" maxlength="250" class=" textinput textInput" id="add_groupI" value="TypeGroup">
+
+
+                    <button style="position: absolute; margin-left: auto;margin-left: -45px;margin-top: 9px;padding: 3px;
+                    height: 29px;
+                    color: #17a2b8;
+                    background: #404040;
+                    border: 1px solid #292828;
+                    " id="add_groupB" class="btn btn-outline-info" onclick="addGroup()">Add</button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div style='width: 90%; margin-left: 9.5%;'>
+
+
+                <div  style="margin-top: 10px;width: 100%; ">
+
+                    <div style="margin-right: 10%; width: 90%;
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                    padding: 10px 10px;
+                    background-color: rgba(64, 64, 64,.2);
+                    border: 1px solid #0d6370;
+                    border-radius: 7px;
+                    color: #fff;
+                    height: 150px;
+                    ">
+
+
+
+                    
+                    {% for auser in usersList %} 
+                    <div class="form-check"style="margin-right: 100%;margin-left: 10px;height: 3.5vh;padding-bottom: 0vh;">
+
+                        {% if auser.1 %}
+                        <input type="checkbox" class="form-check-input" id="check_{{auser.0}}" name="option1" value="something" checked>
+                        <label class="form-check-label" for="check_{{auser}}">{{auser.0}}</label>
+                        {% else %}
+
+                        <input type="checkbox" class="form-check-input" id="check_{{auser.0}}" name="option1" value="something" >
+                        <label class="form-check-label" for="check_{{auser}}">{{auser.0}}</label>
+                        {% endif %}
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+
+
+        
+<div data-aos="zoom-in-right" class="content-section center col-lg-7" style="
+margin-right: auto;
+margin-left: auto;
+margin-top: 25px;
+max-height: 338px;
+overflow-y: scroll;
+overflow-x: hidden;
+">
+
+<div class="row">
+
+            <center>
+                <p style="opacity: 1;font-size: 28px;color: white;text-decoration: underline;margin-bottom: 2px">Comments</p>
+            </center>
+            <div style='margin-right: 5%;margin-top: 2px;height: 45px;margin-top:7px;'>
+                <input onClick="this.setSelectionRange(0, this.value.length)" type="text" style="width: 90%;height: 45px;font-size: 16px;margin-left: 5%;" name="comment" maxlength="200" class="textinput textInput" id="id_comment_i" value="New Comment">
+                
+                    <button style="float: right;position: relative;bottom: 40px; padding: 3px;
+                    height: 32px;
+                    color: #17a2b8;
+                    background: #404040;
+                    border: 1px solid #292828;
+                    margin-right: 6.1%;
+                    margin-top: 2px;
+                    "class="btn btn-outline-info" 
+                    onclick="postComment()"
+                    >Post</button>
+            </div>
+{% for comment in comments%}
+    <div style="margin-top:7px;margin-left: 4.2%;">
+
+        <a href="{% url 'profile-view' comment.author %}">
+        <div id="comment_div"class="content-section"style=" padding: 5px;width: 90%;box-shadow: 2px 4px 8px rgba(0, 0, 0, .0);
+        background-color: rgba(64, 64, 64,.2);overflow-x: auto">
+
+            <p id="comment_text"style="margin-top: 1px;margin-bottom: 0px;margin-left: 0px;font-size: 14px;float: left;width: 65%;overflow-x: auto;"><span style="color: grey;"><img style='
+            width:25px;height: 25px;margin-right: 3px;margin-bottom: 0px;overflow-x: auto'class="rounded-circle account-img" src="{{ comment.pic.url }}">
+        {{comment.author}}:</span>  {{comment.text}}
+         </p>
+
+
+             <form style="display: inline" action="{% url 'del-com' comment.pk%}" method="get">
+                <button style="float: right;position: relative;margin-top: 2px;height:25px;border: 0px solid #737373;"  id="delete-bug" class="btn btn-outline-info" ><i class="far fa-trash-alt"></i></button>
+
+            </form>
+
+
+
+            <p id="comment_date"style="margin-top: 6px;margin-bottom: 0px;color: grey;font-size: 12px;overflow: hidden;width: 29%;float: right;position: relative;margin-right:10px">{{comment.date}}</p>
+
+
+        </div>
+    </a>
+</div>
+{% endfor%}
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+        
+
+<div data-aos="zoom-in-left"id="file_div"class="content-section center col-lg-4" style="
+
+margin-top: 25px;
+max-height: 338px;
+overflow: scroll;
+overflow-x: hidden;
+margin-left: 0px;
+margin-right: 0px;
+">
+<div class="row">
+
+            <center>
+                <p style="opacity: 1;font-size: 28px;color: white;text-decoration: underline;margin-bottom: 2px">Files</p>
+            </center>
+
+
+                <div style="height: 75px;width: 89.8%;margin-top:10px;margin-left: 4.8%;">
+                <form method="POST" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            {{f_form|crispy}}
+                          <br>
+                            <button style="float: right;position: relative;bottom: 65px; padding: 3px;
+                    height: 32px;
+                    margin-right: 10px;
+                    color: #17a2b8;
+                    background: #404040;
+                    border: 1px solid #292828;
+                    "class="btn btn-outline-info" type="submit">Upload</button>
+                    </form>
+                </div>
+                </div>
+                    {% for f in files %}
+                <div class="content-section"style="width: 90%;margin-top:10px;margin-left: 4.8%;
+                box-shadow: 2px 4px 8px rgba(0, 0, 0, .0);
+                    background-color: rgba(64, 64, 64,.2);">
+
+                    <div style="z-index: 10;
+                        margin-right: auto;
+                        margin-left: auto;
+                        ">
+                        <div class="row">
+                        <div style=''>
+                        <img style='width:100px;height: 95px'class="account-img" src="{{ f.file.url }}">
+
+                            
+                        </div>
+                        <div style='margin-left: 125px;position: absolute;margin-bottom: 50px;'>
+                            <p id="file_date"style="font-size: 12px;color: grey;margin-bottom: 0px;">{{ f.date }}</p>
+                        <br>
+                        <button style="position: relative;width: 40px; "  id="complete-bug" class="btn btn-outline-info" onclick="location.href='{{ f.file.url }}';"><i class="fas fa-cloud-download-alt"></i></button>
+                        <button style="position: relative;width: 40px; "  id="delete-bug" class="btn btn-outline-info" onclick="location.href='{% url 'del-file' f.pk%}';"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    {% empty %}
+                    {% endfor %}
+
+
+
+        
+</div>
+
+
+
+
+
+</div>
+
+
+
+
 <script  src="{% static 'bugs/update.js'%}"></script>
 
+<script>
+ var users = '{{ allUsers }}';
+ users = users.split('~')
+ for(x = 0;x<=users.length-2;x+=1){ 
+  users[x] = users[x].split('&#x27;')[1]
+}
+
+</script>
 
 {% endblock content%}

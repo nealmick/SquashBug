@@ -9,150 +9,245 @@
 {% block content%}
 
 
-  {% if request.user.is_authenticated %}
+{% if request.user.is_authenticated %}
 
 
 
-  {{ rb|json_script:"redBugs" }}
-  {{ yb|json_script:"yellowBugs" }}
-  {{ gb|json_script:"greenBugs" }}
-  {{ cb|json_script:"completedBugs" }}
-  {{ ob|json_script:"uncompleteBugs" }}
-  {{ ub|json_script:"totalBugs" }}
+{{ rb|json_script:"redBugs" }}
+{{ yb|json_script:"yellowBugs" }}
+{{ gb|json_script:"greenBugs" }}
+{{ cb|json_script:"completedBugs" }}
+{{ ob|json_script:"uncompleteBugs" }}
+{{ ub|json_script:"totalBugs" }}
+
+<div data-aos="zoom-in-right" class="col-lg-6" style="padding-left: 10px;padding-right: 10px;margin:0px;margin-top:10px ">
 
 
-  <div class="col-md-6" style="padding-left: 10px;padding-right: 10px;">
-        <div class="content-section" style="width: col-md-6">
-        <h1>Bugs:</h1>
-          <hr>
 
-        {% for bug in bugs %}
-            
-            
-
-                  <div>
-                    <div class="content-section ff" >
-
-                      {% if bug.severity == 'red' %}
     
-                      <p style="font-size: 22px; "><span style="color: #cf2608;"> {{bug.title}} </span> - {{bug.date}}</p>
-                      {% endif %}
-                      {% if bug.severity == 'yellow' %}
-                      <p style="font-size: 22px;"><span style="color: #b7ba04;"> {{bug.title}} </span> - {{bug.date}}</p>
-    
-                          
-                      {% endif %}
-                      {% if bug.severity == 'green' %}
-                      <p style="font-size: 22px;"><span style="color: #24a607;">{{bug.title}} </span> - {{bug.date}}</p>
-    
-                      {% endif %}
-                  
-                      <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href='{% url 'edit-bug' bug.pk%}';">Edit</button>
-                      <button style="position: relative; " id="complete-bug" class="btn btn-outline-info" onclick="location.href='{% url 'complete-bug' bug.pk%}'">Complete</button>
-                      <button style="position: relative; " id="delete-bug" class="btn btn-outline-info" onclick="location.href='{% url 'del-bug' bug.pk%}';">Delete</button>
 
 
-                      </form>
-                  </div>  
 
-              </div
-            </div>
-        {% empty %}
-            <h1>You have no Bugs!</h1>
-            <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href = '{% url 'new-bug'%}';"  >Create a new Bug</button>
+  <div class="content-section" style="opacity: 1;height: 98.8%;margin-top: 10px;">
+    {% if filter == 'v' %}    
+    <p style="opacity: 1;font-size: 42px;color: white;text-decoration: underline;margin-bottom: 2px">Open Tickets</p>
+    {% endif %}
+    {% if filter == 'total' %}    
+    <p style="opacity: 1;font-size: 42px;color: white;text-decoration: underline;margin-bottom: 2px">Total Tickets</p>
+    {% endif %}
+    {% if filter == 'closed' %}    
+    <p style="opacity: 1;font-size: 42px;color: white;text-decoration: underline;margin-bottom: 2px">Closed Tickets</p>
+    {% endif %}
+    {% if filter == 'high' %}    
+    <p style="opacity: 1;font-size: 42px;color: white;text-decoration: underline;margin-bottom: 2px">High</p>
+    {% endif %}
+    {% if filter == 'medium' %}    
+    <p style="opacity: 1;font-size: 42px;color: white;text-decoration: underline;margin-bottom: 2px">Medium</p>
+    {% endif %}
+    {% if filter == 'low' %}    
+    <p style="opacity: 1;font-size: 42px;color: white;text-decoration: underline;margin-bottom: 2px">Low</p>
+    {% endif %}
 
-
-        {% endfor %}
-    
-          <center>
-
-            <p>
-...
-            </p>
-          {% if is_paginated %}
-            {% if page_obj.has_previous %}
-              <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range %}
-              {% if page_obj.number == num %}
-                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-              {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-            {% endif %}
-          {% endif %}
-          </center>
-        </div>
-      </div>
-      
-        <div class="col-md-6 " style="padding-left: 10px;padding-right: 10px; overflow:hidden;">
-          <div class="content-section" style="overflow:hidden;">
-            <h2>Bug Distribution: </h2s>
-            <hr>
-
-
-            <div style="height: 40%; width: 50%; float:left">
-              <canvas id="myChart"></canvas>
-
-           </div>
-           <div style="margin-top: 15%;height: 40%; width: 50%; float:right; margin-bottom: 115px;">
-            <canvas id="myChart2"></canvas>
-           </div>
-
-
+    {% for bug in bugs %}
+<a href="{% url 'edit-bug' bug.pk%}?"style=" text-decoration: none;">
+    <div data-aos="flip-up"class='content-section ff' style="width: 100%;height: 50px;display: flex;">
+        <div class=""style="margin-top: 2px;overflow: hidden;width: 50%;">
           
 
-
-            
-          </div>
-
-            <div class="content-section" style="margin-top: 20px;">
-              <h2>Bug Stats:</h2>
-              <hr>
-                <ul class="list-group">
-
-                  <li class="list-group-item list-group-item-light"><span style="color: #cf2608;"> Red Bugs: {{rb}} </span></li>
-                  <li class="list-group-item list-group-item-light"><span style="color: #b7ba04;"> Yellow Bugs: {{yb}} </span></li>
-                  <li class="list-group-item list-group-item-light"><span style="color: #24a607;">Green Bugs: {{gb}} </span></li>
-
-                  <li class="list-group-item list-group-item-light">Completed Bugs {{cb}}</li>
-                  <li class="list-group-item list-group-item-light">Uncomplete Bugs {{ob}}</li>
-                  <li class="list-group-item list-group-item-light">Total Bugs {{ub}}</li>
+          <p style="opacity: 1;font-size: 24px;overflow: hidden;"><span style=""><img style='
+            width:25px;height: 23px;margin-right: 3px;margin-bottom: 0px;overflow-x: auto'class="rounded-circle account-img" src="{{ bug.pic.url }}"> {{bug.title}}</span></p>
 
 
-                </ul>
-              </p>
-            </div>
-          </div>
-          <!---
-          site prediction stats.....
-          <div class="col-md-13">
-            <div class="content-section">
-              <h3>Site Prediction Stats:</h3>
-                <ul class="list-group">
-                  <li class="list-group-item list-group-item-light">Correct Completed Predictions: a stat</li>
-                  <li class="list-group-item list-group-item-light">Completed Predictions: ooferino</li>
-                  <li class="list-group-item list-group-item-light">Percent Correct: ergsherg %</li>
-                  <li class="list-group-item list-group-item-light">Prediction Gain: derp</li>
-                  <li class="list-group-item list-group-item-light">Prediction Loss: adsf</li>
-                  <li class="list-group-item list-group-item-light">Prediction Gain-Loss: fdsa</li>
-                </ul>
-              </p>
-            </div>
-            --->
+      </div>
 
-          </div>
-        </div>
-    {% endif %}
-  </body>
+      <div id="lvbutton"class=""style="text-decoration: none;font-size: 12px;color: grey;margin-left: auto; z-index: 1000000;width: 125px;margin-top: 5px;">
+        
+        {% if bug.open %}
+        {{bug.severity.0}}O#{{bug.pk}}
+        {% endif %}
+        {% if not bug.open %}
+        {{bug.severity.0}}C#{{bug.pk}}
+        {% endif %}
+        <form style="display: inline" action="{% url 'edit-bug' bug.pk%}" method="get">
+          <button  onclick="location.href='{% url 'edit-bug' bug.pk%}';"id="edit-bug" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
+        </form>
+        <form style="display: inline" action="{% url 'complete-bug' bug.pk%}" method="get">
+          <button id="complete-bug" class="btn btn-outline-info"><i class="fa fa-solid fa-check"></i></button>
+        </form>
+        <form style="display: inline" action="{% url 'del-bug' bug.pk%}" method="get">
+          <button id="delete-bug" class="btn btn-outline-info"><i class="far fa-trash-alt"></i></button>
+        </form>
+
+
+
+      </div>
+
+      </div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+    {% empty %}
+    <br>
+    <h1>No Tickets!</h1>
+    <br>
+    <button style="position: relative; " id="edit-bug" class="btn btn-outline-info" onclick="location.href = '{% url 'new-bug'%}';"  >Create a Ticket!</button>
+
+
+
+    {% endfor %}
+    
+    <center>
+
+      <p>
+        ...
+      </p>
+      {% if is_paginated %}
+      {% if page_obj.has_previous %}
+      <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+      {% endif %}
+    </center>
+  </div>
 </div>
-<script  src="{% static 'bugs/myChart.js'%}"></script>
 
-{% endblock content %}
+
+
+
+<div data-aos="fade-left" class="col-lg-6" style="padding-left: 10px;padding-right: 10px;margin-top: 20px; ">
+<a href="{% url 'home-bugs' 'closed'%}">
+  <div data-aos="flip-up"class="content-section boxFoo"style="width: 47%; float:left;margin:5px;height: 175px;margin-top: 0px;">
+    <center>
+      <p style="font-size:48px">
+      {{cb}}
+      </p>
+      Closed
+    </center>
+  </div>
+</a>
+<a href="{% url 'home-bugs' 'v'%}">
+  <div data-aos="flip-up"class="content-section boxFoo"style="width: 47%; float:right;margin:5px;height: 175px;margin-top: 0px">
+      <center>
+      <p style="font-size:48px">
+      {{ob}}
+      </p>
+      Open
+    </center>
+  </div>
+</a>
+
+<a href="{% url 'home-bugs' 'total'%}">
+  <div data-aos="flip-up"class="content-section boxFoo"style="width: 47%; float:left;margin:5px;height: 175px;margin-top: 10px">
+    <center>
+      <p style="font-size:48px">
+      {{ub}}
+      </p>
+      Total
+    </center>
+  </div>
+</a>
+
+<a href="{% url 'home-bugs' 'high'%}">
+
+  <div data-aos="flip-up" class="content-section boxFoo"style="width: 47%; float:right;margin:5px;height: 175px;margin-top: 7px ">
+      <center>
+      <p style="font-size:48px">
+      {{rb}}
+      </p>
+      High
+    </center>
+  </div>
+
+
+</a>
+  <div data-aos="fade-up"class="content-section" style="width: 98.5%;height: 400px;margin-right: 5px;margin-top: 385px;">
+    <div stlye='width:100%;'>
+        <p style="font-size: 36px;color: white;text-decoration: underline;margin-bottom: 2px">Distribution</p>
+    </div>
+
+      <div style="margin-left: 25px ;height: 150px; width: 30%; float:left">
+        <canvas id="myChart"></canvas>
+
+      </div>
+      <div style="margin-right: 100px;height: 150px; width: 30%; float:right; ">
+        <canvas id="myChart2"></canvas>
+      </div>
+
+
+
+      <div style="margin-top: 25px;width: 49%;  float:left">
+          
+      <a href="{% url 'home-bugs' 'high'%}"style="text-decoration: none;">
+        <div class="boxFoo2 ff"><span style="color: white;">High:  {{rb}} </span></div>
+      </a>
+      <a href="{% url 'home-bugs' 'medium'%}"style="text-decoration: none;">
+        <div class="boxFoo2 ff"><span style="color: white;">Medium: {{yb}} </span></div>
+      </a>
+      <a href="{% url 'home-bugs' 'low'%}"style="text-decoration: none;">
+        <div class="boxFoo2 ff"style="text-decoration: none;"><span style="color: white;">Low: {{gb}} </span></div>
+      </a>
+
+
+            </div>
+
+        <div style="margin-top: 25px;width: 49%; float:right; ">
+
+
+      <a href="{% url 'home-bugs' 'v'%}"style="text-decoration: none;">
+        <div class="boxFoo2 ff"><span style="color: white;">Open: {{ob}} </span></div>
+      </a>
+
+      <a href="{% url 'home-bugs' 'closed'%}"style="text-decoration: none;">
+        <div class="boxFoo2 ff"><span style="color: white;">Closed: {{cb}} </span></div>
+      </a>
+
+      <a href="{% url 'home-bugs' 'total'%}"style="text-decoration: none;">
+        <div class="boxFoo2 ff"style="text-decoration: none;"><span style="color: white;">Total: {{ub}} </span></div>
+      </a>
+
+            </div>
+      <hr>
+
+
+      <div>
+
+
+
+      </div>
+
+        </div>
+        {% endif %}
+      </body>
+    </div>
+
+    <div style="margin-top:25px">
+      
+    </div>
+
+
+
+    <script  src="{% static 'bugs/myChart.js'%}"></script>
+
+    {% endblock content %}
