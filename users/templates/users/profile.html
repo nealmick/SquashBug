@@ -1,9 +1,10 @@
 {% extends "bugs/base.html"%}
 {% load crispy_forms_tags %}
 {% block content%}
-  <div class="content-section center" style="
+  <div class="content-section center col-md-8" style="
   margin-right: auto;
   margin-left: auto;
+  margin-top: 25px;
   ">
     <body class="background2">
 
@@ -13,12 +14,12 @@
       <div class="media-body">
         <h2 class="account-heading"style="margin-bottom: .1rem;">{{ user.username }}</h2>
         
-        <a style="position: relative; "  href='{% url 'completed-bugs' %}'>Completed Bugs</a>
+        <a style="position: relative; "  href='{% url 'completed-bugs' %}'>Closed Bugs</a>
         <br>
-        <p class="text-secondary"style="margin-bottom: .1rem;">Total Bugs: {{ub}}</p>
-        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="color: #cf2608;"> Red Bugs: {{rb}} </span></p>
-        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="color: #b7ba04;"> Yellow Bugs: {{yb}} </span></p>
-        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="color: #24a607;">Green Bugs: {{gb}} </span></p>
+        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="color: white;">Total Bugs: {{ub}}</span></p>
+        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="color: #17a2b8;"> High: {{rb}} </span></p>
+        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="color: white;"> Medium: {{yb}} </span></p>
+        <p class="text-secondary"style="margin-bottom: .1rem;"><span style="color: white;">Low: {{gb}} </span></p>
         
         
     

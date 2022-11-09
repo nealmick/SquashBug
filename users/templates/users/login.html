@@ -6,29 +6,48 @@ margin-right: auto;
 margin-left: auto;
 ">
   <body class="background2">
-
+    <center>
     <form method="POST">
       {% csrf_token %}
       <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Log In</legend>
-        <h4>You may use these credentials:</h4>
-        <h5>User: demo</h5>
-        <h5>Pass: demodemo</h5>
+        <p style="font-size: 56px;color: white;text-decoration: underline;margin-bottom: 2px">Login</p>
+        <br>
+        <br>
         {{ form|crispy}}
       </fieldset>
+        <br>
+
       <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Login</button>
-        <small class="text-muted ml-2">
-          <a href="{% url 'password_reset'%}">Forgot Password?</a>
-        </small>
+
+        <a class="btn btn-outline-info" onclick="demoLogin();">Demo</a>
+        <button id="login-button"class="btn btn-outline-secondary" style=""type="submit">Login</button>
+
+
+        <br>
+
       </div>
     </form>
     <div class="boder-top pt-3">
       <small class="text-muted">
-        Need An Account?<a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+        <br>
+
+        Need An Account?<a class="ml-2" href="{% url 'register' %}">Sign Up</a> 
+        <br>
+        Forgot Password? <a href="{% url 'password_reset'%}">Reset</a>
       </small>
     </div>
   </body>
 </div>
+<script>
+  function demoLogin(){
+    document.getElementById('id_password').value='testdemo'
+    document.getElementById('id_username').value='test'
+    document.forms[0].submit()
 
+
+  } 
+
+
+
+</script>
 {% endblock content%}

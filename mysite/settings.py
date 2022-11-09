@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-2z63d6sn(5i*7c@u=a2g76ldusr5-g8y!($$_@s$!g7^^8u#jf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['njm.rocks','squashbug.xyz']
 
 
 # Application definition
@@ -126,7 +126,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 CRIPSPY_TEMPLATE_PACK = 'bootstrap4'
-LOGIN_REDIRECT_URL = 'home-bugs'
+LOGIN_REDIRECT_URL = 'login_r'
 LOGIN_URL = 'login'
 
 

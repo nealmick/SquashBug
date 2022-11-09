@@ -11,7 +11,6 @@ class Profile(models.Model):
     greenBugs = models.IntegerField(default=0)
     yellowBugs = models.IntegerField(default=0)
     redBugs = models.IntegerField(default=0)
-    
     def __str__(self):
         return f'{self.user.username} Profile'
     def save(self, *args, **kawrgs):
@@ -21,3 +20,6 @@ class Profile(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+

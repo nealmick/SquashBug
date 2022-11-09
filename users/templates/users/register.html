@@ -6,11 +6,13 @@ margin-right: auto;
 margin-left: auto;
 ">
   <body class="background2">
+        <p style="font-size: 56px;color: white;text-decoration: underline;margin-bottom: 2px">Register</p>
+        <br>
+        <br>
 
     <form method="POST">
       {% csrf_token %}
       <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Join Today</legend>
         {{ form|crispy}}
       </fieldset>
       <div class="form-group">
@@ -23,6 +25,11 @@ margin-left: auto;
         Already Have An Account?<a class="ml-2" href="{% url 'login' %}">Sign In</a>
       </small>
     </div>
+    </center>
   </body>
 </div>
+
+<style>
+    input {min-width: 300px};
+</style>
 {% endblock content%}
