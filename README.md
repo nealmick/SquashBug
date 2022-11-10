@@ -6,6 +6,7 @@ The web app was built using the Django Python library using a MVC design archite
 
 #Live
 https://squashbug.xyz/
+
 <img src="https://i.imgur.com/W8h4b9e.png" width="600" height="400" />
 <img src="https://i.imgur.com/EIudZRm.png" width="600" height="400" />
 <img src="https://i.imgur.com/llYfpQn.png" width="600" height="400" />
