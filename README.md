@@ -7,6 +7,16 @@ The ticket system was built with Django utilizing a MVC design architecture. The
 
 # Live: https://squashbug.xyz/
 
+#### Install:
+
+```bash
+git clone https://github.com/nealmick/SquashBug
+cd SquashBug
+pip install -r requirements.txt
+python3 manage.py runserver
+```
+
+
 <img src="https://i.imgur.com/W8h4b9e.png" width="600" height="500" />
 <img src="https://i.imgur.com/EIudZRm.png" width="600" height="400" />
 <img src="https://i.imgur.com/llYfpQn.png" width="600" height="450" />
