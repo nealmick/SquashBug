@@ -1,7 +1,9 @@
 # SquashBug
+
 A ticket system to help you track, collaborate,  and destroy bugs.
 
-The web app was built with Django and uses a MVC design architecture.  Each user has a profile which keeps information such as, profile pictures, amount of tickets, and completed tickets.  The main view is ordered by date and paginated by a list of the users tickets.  The ticket list view also contains graphs displaying distrubutions categorically.  Each ticket model contains a severity rating, title, description, date created, foreign users, and completed values.  Each ticket also contains comments, and files.  New tickets can be created using a form.  The app includes users creation, login, password reset, and logout.
+
+The ticket system was built with Django utilizing a MVC design architecture. The system enables collaboration by allowing many accounts to work together on each ticket. All tickets have a severity rating, date, author, as well as comments and attached files. The ticket dashboard enables sorting, pagination, and stats with ticket distribution graphs. New tickets are created with a form and can be edited. The project also includes an admin dashboard, and is mobile responsive.
 
 # Live: https://squashbug.xyz/
 
