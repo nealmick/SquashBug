@@ -25,5 +25,3 @@ urlpatterns = [
     path('profile/<str:username>', views.profileView, name='profile-view'),
 
 ]
-
-path('edit/<int:pk>', views.editBug, name='edit-bug'),
