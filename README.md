@@ -1,4 +1,4 @@
-# SquashBug
+# SquashBug.xyz
 
 
 A ticket system to help you track, collaborate,  and destroy bugs.
