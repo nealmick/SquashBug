@@ -24,3 +24,4 @@ python3 manage.py runserver
 
 <img src="https://i.imgur.com/3ven2Y1.png" width="600" height="500" />
 
+
