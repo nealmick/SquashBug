@@ -1,7 +1,7 @@
 # SquashBug.xyz
 
 
-SquashBug is a web-based ticket management system that follows MVC architectural standards and is built using the Django framework. The user interface is designed using Bootstrap, CSS and HTML, providing a clean and intuitive layout. The main feature is a dashboard that gives a clear overview of recent tickets, allowing users to easily search, sort, and paginate through the data. Each ticket is displayed with relevant information such as severity, date, and author. The dashboard also includes interactive graphs that provide valuable insights into the ticket data.
+SquashBug is a web-based ticket management system that follows MVC architectural standards and is built using the Django framework. The user interface is designed using Bootstrap, CSS, and HTML, providing a clean and intuitive layout. The main feature is a dashboard that gives a clear overview of recent tickets, allowing users to easily search, sort, and paginate through the data. Each ticket is displayed with relevant information such as severity, date, and author. The dashboard also includes interactive graphs that provide valuable insights into the ticket data.
 
 
 Django Apps:
